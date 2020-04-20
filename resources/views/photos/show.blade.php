@@ -3,10 +3,18 @@
 <div class="container">
     <h3>{{ $photo->title }}</h3>
     <p>{{ $photo->description }}</p>
-    <a href="{{ route('album-show', $photo->album->id)}}" class="btn btn-info">Go Back</a>
     <small>Size: {{ $photo->size }} bytes</small>
-    <hr>     
-    <img src="../storage/albums/{{ $photo->album_id }}/{{ $photo->photo }}" alt="{{ $photo->photo }}">
+    {{ Form::open (['action' => ['PhotosController@destroy', $photo->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
+    {{ Form::submit('Delete', ['class' => 'btn btn-danger ml-1 float-right'])}}
+    {{ Form::hidden ('_method', 'DELETE') }}
+    <div>
+        <a href="{{ route('album-show', $photo->album_id)}}" class="btn btn-info">Go Back</a>
+
+    </div>
+    {{ Form::close()}}
+
+    <hr>
+    <img src="../storage/albums/{{ $photo->album->id }}/{{ $photo->photo }}" alt="{{ $photo->photo }}" width="100%">
     <hr>
 </div>
 
